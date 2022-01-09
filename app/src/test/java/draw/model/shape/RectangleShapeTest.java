@@ -64,6 +64,15 @@ public class RectangleShapeTest {
         assertTrue(Arrays.deepEquals(actual, expected));
     }
 
+    /** Scenario:
+        enter command: R 18 3 14 1
+        ----------------------
+        |             xxxxx  |
+        |             x   x  |
+        |             xxxxx  |
+        |                    |
+        ----------------------
+     */
     @Test 
     public void Draw_rectangle_with_point2_smaller_than_point1() throws Exception  {
         

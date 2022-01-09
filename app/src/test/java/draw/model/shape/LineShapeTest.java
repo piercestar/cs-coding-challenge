@@ -78,6 +78,15 @@ public class LineShapeTest {
         assertTrue(Arrays.deepEquals(actual, expected));
     }
 
+    /** Scenario:
+        enter command: L 6 2 1 2
+        ----------------------
+        |                    |
+        |xxxxxx              |
+        |                    |
+        |                    |
+        ----------------------
+     */
     @Test 
     public void Draw_horizontal_line_with_point2_smaller_than_point1() throws Exception  {
         
@@ -137,6 +146,15 @@ public class LineShapeTest {
         assertTrue(Arrays.deepEquals(actual, expected));      
     }
 
+    /** Scenario:
+        enter command: L 6 4 6 3
+        ----------------------
+        |                    |
+        |                    |
+        |     x              |
+        |     x              |
+        ----------------------
+     */
     @Test 
     public void Draw_vertical_line_with_point2_smaller_than_point1() throws Exception  {
 
