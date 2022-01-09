@@ -29,3 +29,9 @@ jobs:
       uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
     - name: Test with Gradle
       run: ./gradlew test
+    - name: Publish Test Report
+      if: always()
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: 'test-report'
+        path: build/reports/tests/test/*
