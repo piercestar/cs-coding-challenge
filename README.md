@@ -1,7 +1,7 @@
 # cs-coding-challenge
 Coding Challenge from Credit Suisse, 4 January 2021.
 
-
+![master workflow](https://github.com/piercestar/cs-coding-challenge/actions/workflows/gradle.yml/badge.svg)
 
 __Description__
 
