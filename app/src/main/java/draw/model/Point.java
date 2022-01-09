@@ -9,7 +9,7 @@ public class Point {
 
     private char color;
 
-    private static final char DEFAULT_COLOR = 'o';
+    private static final char DEFAULT_COLOR = ' ';
 
     public Point() {
         this.color = DEFAULT_COLOR;

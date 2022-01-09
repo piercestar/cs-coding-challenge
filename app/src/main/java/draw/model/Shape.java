@@ -1,11 +1,6 @@
 package draw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+interface Shape {
 
-@Getter
-@Setter
-abstract class Shape {
-
-    abstract Point[][] paint(Point[][] canvas);
+    public Point[][] paint(Point[][] canvas);
 }

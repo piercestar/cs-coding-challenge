@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import draw.model.LineShape;
+import draw.exception.InvalidShapeException;
 
 public class LineShapeTest {
 
@@ -21,7 +22,7 @@ public class LineShapeTest {
         ----------------------
      */
     @Test 
-    public void Paint_single_point() {
+    public void Paint_single_point() throws Exception {
 
         int height = 4;
         int width = 20;
@@ -54,7 +55,7 @@ public class LineShapeTest {
         ----------------------
      */
     @Test 
-    public void Paint_horizontal_line() {
+    public void Paint_horizontal_line() throws Exception  {
         
         int height = 4;
         int width = 20;
@@ -88,7 +89,7 @@ public class LineShapeTest {
         ----------------------
      */
     @Test 
-    public void Paint_vertical_line() {
+    public void Paint_vertical_line() throws Exception  {
 
         int height = 4;
         int width = 20;
@@ -109,20 +110,23 @@ public class LineShapeTest {
         LineShape line = new LineShape(6,3,6,4);
         Point[][] actual = line.paint(blank);
 
-        for (int i=0; i<height; i++) {
-            for (int j=0; j<width; j++) {
-                char color = actual[i][j].getColor();
-
-                System.out.print(color);
-            }
-            System.out.print('\n');
-        }
-
         assertTrue(Arrays.deepEquals(actual, expected));      
     }
 
-    @Test 
-    public void Diagonal_lines_are_invalid() {
-        fail();
+
+    /** Scenario:
+        enter command: L 1 1 3 3
+        ----------------------
+        |x                   |
+        | x                  |
+        |  x                 |
+        |                    |
+        ----------------------
+     */
+    @Test(expected = InvalidShapeException.class)
+    public void Diagonal_lines_are_invalid() throws Exception  {
+        
+        LineShape line = new LineShape(1,1,3,3);
+
     }
 }
