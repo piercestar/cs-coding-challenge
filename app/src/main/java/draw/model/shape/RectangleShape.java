@@ -23,15 +23,15 @@ public class RectangleShape implements Shape {
             );
 
         if (this.point1.equals(this.point2)) {
-            throw new InvalidShapeException("Rectangle cannot be drawn with a single point.");
+            throw new InvalidShapeException("Cannot draw rectangle with a single point.");
         }
 
         if (this.point1.getX() == this.point2.getX()) {
-            throw new InvalidShapeException("Rectangle cannot be drawn without a width.");
+            throw new InvalidShapeException("Cannot draw rectangle with no width.");
         }
 
         if (this.point1.getY() == this.point2.getY()) {
-            throw new InvalidShapeException("Rectangle cannot be drawn without a height.");
+            throw new InvalidShapeException("Cannot draw rectangle with no height.");
         }
 
         
