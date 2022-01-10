@@ -67,12 +67,12 @@ public class LineCommandTest {
 
         int x1 = 100;
         int y1 = 200;
-        int x2 = 300;
+        int x2 = 100;
         int y2 = 400;
         int height = 4;
         int width = 20;
 
-        String expected = "Only horizontal or vertical lines are allowed." + System.getProperty("line.separator");
+        String expected = "Line exceeds the canvas boundary." + System.getProperty("line.separator");
                         
         Canvas canvas = new Canvas(width, height);
         LineCommand command = new LineCommand(canvas, x1, y1, x2, y2);
