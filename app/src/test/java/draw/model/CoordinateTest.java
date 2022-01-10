@@ -81,10 +81,10 @@ public class CoordinateTest {
 
         point1.swap(point2);
 
-        assertEquals(point1.getX(), x2);
-        assertEquals(point1.getY(), y2);
-        assertEquals(point2.getX(), x1);
-        assertEquals(point2.getY(), y1);
+        assertEquals(x2, point1.getX());
+        assertEquals(y2, point1.getY());
+        assertEquals(x1, point2.getX());
+        assertEquals(y1, point2.getY());
         
     }
 
