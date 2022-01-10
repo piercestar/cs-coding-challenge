@@ -41,12 +41,12 @@ public class RectangleShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -58,8 +58,8 @@ public class RectangleShapeTest {
         expected[1][13].setColor('x');
         expected[1][17].setColor('x');
 
-        RectangleShape line = new RectangleShape(14,1,18,3);
-        Point[][] actual = line.draw(blank);
+        RectangleShape rect = new RectangleShape(14,1,18,3);
+        rect.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));
     }
@@ -78,12 +78,12 @@ public class RectangleShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -95,8 +95,8 @@ public class RectangleShapeTest {
         expected[1][13].setColor('x');
         expected[1][17].setColor('x');
 
-        RectangleShape line = new RectangleShape(18,3,14,1);
-        Point[][] actual = line.draw(blank);
+        RectangleShape rect = new RectangleShape(18,3,14,1);
+        rect.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));
     }
@@ -113,7 +113,7 @@ public class RectangleShapeTest {
     @Test (expected = InvalidShapeException.class)
     public void Drawing_rectangles_with_no_width_is_invalid() throws Exception  {
 
-        RectangleShape line = new RectangleShape(14,1,14,3);
+        RectangleShape rect = new RectangleShape(14,1,14,3);
 
     }
 
@@ -129,7 +129,7 @@ public class RectangleShapeTest {
     @Test (expected = InvalidShapeException.class)
     public void Drawing_rectangles_with_no_height_is_invalid() throws Exception  {
 
-        RectangleShape line = new RectangleShape(14,1,18,1);
+        RectangleShape rect = new RectangleShape(14,1,18,1);
 
     }
 }

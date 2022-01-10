@@ -25,12 +25,12 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -38,7 +38,7 @@ public class LineShapeTest {
         expected[0][0].setColor('x');
 
         LineShape line = new LineShape(1,1,1,1);
-        Point[][] actual = line.draw(blank);
+        line.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));
         
@@ -58,12 +58,12 @@ public class LineShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -73,7 +73,7 @@ public class LineShapeTest {
         }
 
         LineShape line = new LineShape(1,2,6,2);
-        Point[][] actual = line.draw(blank);
+        line.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));
     }
@@ -92,12 +92,12 @@ public class LineShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -107,7 +107,7 @@ public class LineShapeTest {
         }
 
         LineShape line = new LineShape(6,2,1,2);
-        Point[][] actual = line.draw(blank);
+        line.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));
     }
@@ -126,12 +126,12 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -141,7 +141,7 @@ public class LineShapeTest {
         }
 
         LineShape line = new LineShape(6,3,6,4);
-        Point[][] actual = line.draw(blank);
+        line.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));      
     }
@@ -160,12 +160,12 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -175,7 +175,7 @@ public class LineShapeTest {
         }
 
         LineShape line = new LineShape(6,4,6,3);
-        Point[][] actual = line.draw(blank);
+        line.draw(actual);
 
         assertTrue(Arrays.deepEquals(actual, expected));      
     }
@@ -202,16 +202,16 @@ public class LineShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] blank = new Point[height][width];
+        Point[][] actual = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                blank[i][j] = new Point();
+                actual[i][j] = new Point();
             }
         }
 
         LineShape line = new LineShape(20,4,21,4);
-        line.draw(blank);
+        line.draw(actual);
 
     }
 }
