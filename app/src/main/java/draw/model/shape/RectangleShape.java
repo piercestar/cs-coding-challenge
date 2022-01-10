@@ -37,7 +37,7 @@ public class RectangleShape implements Shape {
         
     }
 
-    public Point[][] draw(Point[][] canvas) throws OutOfBoundsException {
+    public void draw(Point[][] canvas) throws OutOfBoundsException {
 
         if (!isWithinCanvas(canvas)) {
             throw new OutOfBoundsException("Rectangle exceeds the canvas boundary.");
@@ -54,8 +54,6 @@ public class RectangleShape implements Shape {
             canvas[i-1][this.point1.getX()-1].setColor(color);
             canvas[i-1][this.point2.getX()-1].setColor(color);
         }
-
-        return canvas;
         
     }
 

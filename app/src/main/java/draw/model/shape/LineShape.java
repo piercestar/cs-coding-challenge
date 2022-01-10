@@ -29,7 +29,7 @@ public class LineShape implements Shape {
         
     }
 
-    public Point[][] draw(Point[][] canvas) throws OutOfBoundsException {
+    public void draw(Point[][] canvas) throws OutOfBoundsException {
         
         if (!isWithinCanvas(canvas)) {
             throw new OutOfBoundsException("Line exceeds the canvas boundary.");
@@ -40,8 +40,6 @@ public class LineShape implements Shape {
                 canvas[i-1][j-1].setColor('x');
             }
         }
-
-        return canvas;
 
     }
 

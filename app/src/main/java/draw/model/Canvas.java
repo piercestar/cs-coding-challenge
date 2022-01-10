@@ -29,18 +29,26 @@ public class Canvas {
         return points;
     }
 
-    private void addShape(Shape shape) throws OutOfBoundsException {
-        this.canvas = shape.draw(this.canvas);
+    public void addShape(Shape shape) throws OutOfBoundsException {
+        shape.draw(this.canvas);
     }
 
-    public void print() {
-        for (int i=0; i<height; i++) {
-            for (int j=0; j<width; j++) {
-                char color = this.canvas[i][j].getColor();
+    public void fill(int x, int y, char color) {
+        // to do
+    }
 
-                System.out.print(color);
+    // returns a deep copy of the canvas
+    public Point[][] getCanvas() {
+
+        Point[][] copy = new Point[this.height][this.width];
+
+        for (int i=0; i<this.height; i++) {
+            for (int j=0; j<this.width; j++) {
+                copy[i][j] = new Point(this.canvas[i][j]);
             }
-            System.out.print('\n');
         }
+
+        return copy;
+
     }
 }
