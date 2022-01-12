@@ -31,7 +31,7 @@ public class RectangleCommand extends Command {
     public void execute() throws Exception {
         try {
             RectangleShape rect = new RectangleShape(this.x1, this.y1, this.x2, this.y2);
-            canvas.addShape(rect);
+            canvas.drawShape(rect);
             Printer.print(canvas.getCanvas());
         } catch (InvalidShapeException e) {
             System.out.println(e.getMessage());

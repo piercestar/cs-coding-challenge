@@ -1,9 +1,10 @@
 package draw.model.shape;
 
-import draw.model.Point;
+import draw.model.Canvas;
 import draw.model.Coordinate;
 import draw.exception.InvalidShapeException;
 import draw.exception.OutOfBoundsException;
+import draw.exception.UninitializedCanvasException;
 
 public class RectangleShape implements Shape {
 
@@ -13,14 +14,8 @@ public class RectangleShape implements Shape {
     public RectangleShape(int x1, int y1, int x2, int y2) throws InvalidShapeException {
 
         // ensure point1 is always smaller than point2
-        this.point1 = new Coordinate(
-                Math.min(x1,x2),
-                Math.min(y1,y2)
-            );
-        this.point2 = new Coordinate(
-                Math.max(x1,x2),
-                Math.max(y1,y2)
-            );
+        this.point1 = new Coordinate(x1, y1);
+        this.point2 = new Coordinate(x2, y2);
 
         if (this.point1.equals(this.point2)) {
             throw new InvalidShapeException("Cannot draw rectangle with a single point.");
@@ -37,34 +32,34 @@ public class RectangleShape implements Shape {
         
     }
 
-    public void draw(Point[][] canvas) throws OutOfBoundsException {
+    public void draw(Canvas canvas) throws UninitializedCanvasException, OutOfBoundsException { 
 
-        if (!isWithinCanvas(canvas)) {
-            throw new OutOfBoundsException("Rectangle exceeds the canvas boundary.");
+        if (!canvas.isWithinCanvas(this.point1.getX()-1, this.point1.getY()-1) ) {
+            throw new OutOfBoundsException(this.point1.getX(), this.point1.getY());
+        }
+
+        if (!canvas.isWithinCanvas(this.point2.getX()-1, this.point2.getY()-1) ) {
+            throw new OutOfBoundsException(this.point2.getX(), this.point2.getY());
         }
 
         char color = 'x';
+
+        int start = Math.min(this.point1.getX(), this.point2.getX());
+        int end = Math.max(this.point1.getX(), this.point2.getX());
         
-        for (int i = this.point1.getX(); i <= this.point2.getX(); i++) {
-            canvas[this.point1.getY()-1][i-1].setColor(color);
-            canvas[this.point2.getY()-1][i-1].setColor(color);
+        for (int i = start; i <= end; i++) {
+            canvas.colorPoint(i, this.point1.getY(), color);
+            canvas.colorPoint(i, this.point2.getY(), color);
         }
 
-        for (int i = this.point1.getY(); i <= this.point2.getY(); i++) {
-            canvas[i-1][this.point1.getX()-1].setColor(color);
-            canvas[i-1][this.point2.getX()-1].setColor(color);
+        start = Math.min(this.point1.getY(), this.point2.getY());
+        end = Math.max(this.point1.getY(), this.point2.getY());
+
+        for (int i = start; i <= end; i++) {
+            canvas.colorPoint(this.point1.getX(), i, color);
+            canvas.colorPoint(this.point2.getX(), i, color);
         }
         
-    }
-
-    private boolean isWithinCanvas(Point[][] canvas) {
-
-        int height = canvas.length;
-        int width = canvas[0].length;
-
-        return this.point1.getX() > 0 && this.point1.getY() > 0 && this.point2.getX() > 0 && this.point2.getY() > 0 &&
-                this.point1.getX() <= width && this.point2.getX() <= width && this.point1.getY() <= height && this.point2.getY() <= height;
-
     }
     
 }

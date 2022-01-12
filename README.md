@@ -3,6 +3,24 @@ Coding Challenge from Credit Suisse, 4 January 2021.
 
 ![master workflow](https://github.com/piercestar/cs-coding-challenge/actions/workflows/gradle.yml/badge.svg)
 
+# Running the Application
+
+This application was built with gradle. Use the wrapper to tun the program or tests.
+
+```
+.\gradlew.bat run --console=plain
+.\gradlew.bat test
+```
+
+or   
+
+``` 
+gradlew run --console=plain
+gradlew test
+```
+
+# The Problem
+
 __Description__
 
 You're given the task of writing a simple console version of a drawing program. 

@@ -11,14 +11,30 @@ public class Printer {
 
         int height = canvas.length;
         int width = canvas[0].length;
+        
+        for (int i=0; i<width+2; i++) {
+            System.out.print('-');
+        }
+
+        System.out.println();
 
         for (int i=0; i<height; i++) {
+
+            System.out.print('|');
+
             for (int j=0; j<width; j++) {
                 char color = canvas[i][j].getColor();
 
                 System.out.print(color);
             }
-            System.out.println();
+
+            System.out.println('|');
         }
+
+        for (int i=0; i<width+2; i++) {
+            System.out.print('-');
+        }
+
+        System.out.println();
     }
 }

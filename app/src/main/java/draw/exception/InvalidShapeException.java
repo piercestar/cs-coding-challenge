@@ -1,7 +1,7 @@
 package draw.exception;
 
-import lombok.experimental.StandardException;
-
-@StandardException
 public class InvalidShapeException extends Exception { 
+    public InvalidShapeException(String message) {
+        super(message);
+    }
 }

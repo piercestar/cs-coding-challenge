@@ -32,7 +32,7 @@ public class LineCommand extends Command {
 
         try {
             LineShape line = new LineShape(this.x1, this.y1, this.x2, this.y2);
-            canvas.addShape(line);
+            canvas.drawShape(line);
             Printer.print(canvas.getCanvas());
         } catch (InvalidShapeException e) {
             System.out.println(e.getMessage());

@@ -3,12 +3,30 @@
  */
 package draw.cli;
 
+import draw.cli.Controller;
+import draw.model.Canvas;
+import draw.parser.Parser;
+import draw.parser.ParsedCommand;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        Controller controller = new Controller(); 
+        Parser parser = new Parser();
+
+        while(true) {
+            run(controller, parser);
+        }
+
+    }
+
+    public static void run(Controller controller, Parser parser) {
+        try {
+            ParsedCommand parsedCommand = parser.parse();
+            controller.execute(parsedCommand);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

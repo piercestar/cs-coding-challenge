@@ -1,9 +1,10 @@
 package draw.model.shape;
 
-import draw.model.Point;
+import draw.model.Canvas;
 import draw.exception.OutOfBoundsException;
+import draw.exception.UninitializedCanvasException;
 
 public interface Shape {
 
-    public void draw(Point[][] canvas) throws OutOfBoundsException;
+    public void draw(Canvas canvas) throws UninitializedCanvasException, OutOfBoundsException;
 }

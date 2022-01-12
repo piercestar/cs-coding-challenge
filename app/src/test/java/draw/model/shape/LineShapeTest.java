@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import draw.model.Point;
+import draw.model.Canvas;
 import draw.model.shape.LineShape;
 import draw.exception.InvalidShapeException;
 import draw.exception.OutOfBoundsException;
@@ -25,12 +26,11 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        Canvas actual = new Canvas(width, height);
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -40,7 +40,7 @@ public class LineShapeTest {
         LineShape line = new LineShape(1,1,1,1);
         line.draw(actual);
 
-        assertTrue(Arrays.deepEquals(actual, expected));
+        assertTrue(Arrays.deepEquals(actual.getCanvas(), expected));
         
     }
 
@@ -58,12 +58,15 @@ public class LineShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        int x1 = 6;
+        int y1 = 2;
+        int x2 = 1;
+        int y2 = 2;
+        Canvas actual = new Canvas(width, height);
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -72,10 +75,10 @@ public class LineShapeTest {
           expected[1][i].setColor('x');
         }
 
-        LineShape line = new LineShape(1,2,6,2);
+        LineShape line = new LineShape(x1,y1,x2,y2);
         line.draw(actual);
 
-        assertTrue(Arrays.deepEquals(actual, expected));
+        assertTrue(Arrays.deepEquals(actual.getCanvas(), expected));
     }
 
     /** Scenario:
@@ -92,12 +95,15 @@ public class LineShapeTest {
         
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        int x1 = 6;
+        int y1 = 2;
+        int x2 = 1;
+        int y2 = 2;
+        Canvas actual = new Canvas(width, height);
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -106,10 +112,10 @@ public class LineShapeTest {
           expected[1][i].setColor('x');
         }
 
-        LineShape line = new LineShape(6,2,1,2);
+        LineShape line = new LineShape(x2,y2,x1,y1);
         line.draw(actual);
 
-        assertTrue(Arrays.deepEquals(actual, expected));
+        assertTrue(Arrays.deepEquals(actual.getCanvas(), expected));
     }
 
     /** Scenario:
@@ -126,12 +132,15 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        int x1 = 6;
+        int y1 = 3;
+        int x2 = 6;
+        int y2 = 4;
+        Canvas actual = new Canvas(width, height);
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -140,10 +149,10 @@ public class LineShapeTest {
           expected[i][5].setColor('x');
         }
 
-        LineShape line = new LineShape(6,3,6,4);
+        LineShape line = new LineShape(x1,y1,x2,y2);
         line.draw(actual);
 
-        assertTrue(Arrays.deepEquals(actual, expected));      
+        assertTrue(Arrays.deepEquals(actual.getCanvas(), expected));      
     }
 
     /** Scenario:
@@ -160,12 +169,15 @@ public class LineShapeTest {
 
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        int x1 = 6;
+        int y1 = 3;
+        int x2 = 6;
+        int y2 = 4;
+        Canvas actual = new Canvas(width, height);
         Point[][] expected = new Point[height][width];
 
         for (int i=0; i<height; i++) {
             for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
                 expected[i][j] = new Point();
             }
         }
@@ -174,10 +186,10 @@ public class LineShapeTest {
           expected[i][5].setColor('x');
         }
 
-        LineShape line = new LineShape(6,4,6,3);
+        LineShape line = new LineShape(x2,y2,x1,y1);
         line.draw(actual);
 
-        assertTrue(Arrays.deepEquals(actual, expected));      
+        assertTrue(Arrays.deepEquals(actual.getCanvas(), expected));      
     }
 
 
@@ -193,24 +205,75 @@ public class LineShapeTest {
     @Test(expected = InvalidShapeException.class)
     public void Drawing_diagonal_lines_is_invalid() throws Exception  {
         
-        LineShape line = new LineShape(1,1,3,3);
+        int x1 = 1;
+        int y1 = 1;
+        int x2 = 3;
+        int y2 = 3;
+
+        LineShape line = new LineShape(x1,y1,x2,y2);
 
     }
 
     @Test(expected = OutOfBoundsException.class)
-    public void Drawing_outside_the_boundary_is_invalid() throws Exception  {
+    public void Drawing_x1_outside_the_boundary_is_invalid() throws Exception  {
         
         int height = 4;
         int width = 20;
-        Point[][] actual = new Point[height][width];
+        int x1 = 100;
+        int y1 = 1;
+        int x2 = 1;
+        int y2 = 1;
+        Canvas actual = new Canvas(height, width);
 
-        for (int i=0; i<height; i++) {
-            for (int j=0; j<width; j++) {
-                actual[i][j] = new Point();
-            }
-        }
+        LineShape line = new LineShape(x1,y1,x2,y2);
+        line.draw(actual);
 
-        LineShape line = new LineShape(20,4,21,4);
+    }
+
+    @Test(expected = OutOfBoundsException.class)
+    public void Drawing_y1_outside_the_boundary_is_invalid() throws Exception  {
+        
+        int height = 4;
+        int width = 20;
+        int x1 = 1;
+        int y1 = 100;
+        int x2 = 1;
+        int y2 = 1;
+        Canvas actual = new Canvas(height, width);
+
+        LineShape line = new LineShape(x1,y1,x2,y2);
+        line.draw(actual);
+
+    }
+
+    @Test(expected = OutOfBoundsException.class)
+    public void Drawing_x2_outside_the_boundary_is_invalid() throws Exception  {
+        
+        int height = 4;
+        int width = 20;
+        int x1 = 1;
+        int y1 = 1;
+        int x2 = 100;
+        int y2 = 1;
+        Canvas actual = new Canvas(height, width);
+
+        LineShape line = new LineShape(x1,y1,x2,y2);
+        line.draw(actual);
+
+    }
+
+    @Test(expected = OutOfBoundsException.class)
+    public void Drawing_y2_outside_the_boundary_is_invalid() throws Exception  {
+        
+        int height = 4;
+        int width = 20;
+        int x1 = 1;
+        int y1 = 1;
+        int x2 = 1;
+        int y2 = 100;
+        Canvas actual = new Canvas(height, width);
+
+        LineShape line = new LineShape(x1,y1,x2,y2);
         line.draw(actual);
 
     }

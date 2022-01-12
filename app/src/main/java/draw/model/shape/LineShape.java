@@ -1,9 +1,10 @@
 package draw.model.shape;
 
-import draw.model.Point;
+import draw.model.Canvas;
 import draw.model.Coordinate;
 import draw.exception.InvalidShapeException;
 import draw.exception.OutOfBoundsException;
+import draw.exception.UninitializedCanvasException;
 
 public class LineShape implements Shape {
 
@@ -18,38 +19,36 @@ public class LineShape implements Shape {
         if (!this.point1.isHorizontalOrVerticalLine(this.point2)) {
             throw new InvalidShapeException("Only horizontal or vertical lines are allowed.");
         }
-
-        // swap points if point1 is after point2
-        if (this.point1.isHorizontalLine(this.point2) && (x2 < x1)) {
-            this.point1.swap(this.point2);  
-        } 
-        if (this.point1.isVerticalLine(this.point2) && (y2 < y1)) {
-            this.point1.swap(this.point2);  
-        }
         
     }
 
-    public void draw(Point[][] canvas) throws OutOfBoundsException {
-        
-        if (!isWithinCanvas(canvas)) {
-            throw new OutOfBoundsException("Line exceeds the canvas boundary.");
+    public void draw(Canvas canvas) throws OutOfBoundsException, UninitializedCanvasException {
+
+        if (!canvas.isWithinCanvas(this.point1.getX()-1, this.point1.getY()-1)) {
+            throw new OutOfBoundsException(this.point1.getX(), this.point1.getY());
         }
 
-        for (int i = this.point1.getY(); i <= this.point2.getY(); i++) {
-            for (int j = this.point1.getX(); j <= this.point2.getX(); j++) {
-                canvas[i-1][j-1].setColor('x');
+        if (!canvas.isWithinCanvas(this.point2.getX()-1, this.point2.getY()-1)) {
+            throw new OutOfBoundsException(this.point2.getX(), this.point2.getY());
+        }
+
+        if (this.point1.isHorizontalLine(this.point2)) {
+            int y = this.point1.getY();
+            int start = Math.min(this.point1.getX(), this.point2.getX());
+            int end = Math.max(this.point1.getX(), this.point2.getX());
+            for (int x = start; x <= end; x++) {
+                canvas.colorPoint(x, y, 'x');
             }
         }
 
-    }
-
-    private boolean isWithinCanvas(Point[][] canvas) {
-
-        int height = canvas.length;
-        int width = canvas[0].length;
-
-        return this.point1.getX() > 0 && this.point1.getY() > 0 && this.point2.getX() > 0 && this.point2.getY() > 0 &&
-                this.point1.getX() <= width && this.point2.getX() <= width && this.point1.getY() <= height && this.point2.getY() <= height;
+        if (this.point1.isVerticalLine(this.point2)) {
+            int x = this.point1.getX();
+            int start = Math.min(this.point1.getY(), this.point2.getY());
+            int end = Math.max(this.point1.getY(), this.point2.getY());
+            for (int y = start; y <= end; y++) {
+                canvas.colorPoint(x, y, 'x');
+            }
+        }
 
     }
     

@@ -1,7 +1,7 @@
 package draw.exception;
 
-import lombok.experimental.StandardException;
-
-@StandardException
 public class CanvasInitializationException extends Exception { 
+    public CanvasInitializationException(String message) {
+        super(message);
+    }
 }

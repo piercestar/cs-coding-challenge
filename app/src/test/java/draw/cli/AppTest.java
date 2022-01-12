@@ -3,12 +3,224 @@
  */
 package draw.cli;
 
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.InputStream;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import static org.junit.Assert.*;
 
+import draw.parser.Parser;
+import draw.cli.Controller;
+
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+
+    private final ByteArrayOutputStream actual = new ByteArrayOutputStream();
+
+    @Before
+    public void setUp() {
+        System.setOut(new PrintStream(actual));
+    }
+
+    @Test 
+    public void Init_canvas_then_draw_line_then_quit() {
+
+        int x1 = 11;
+        int y1 = 1;
+        int x2 = 11;
+        int y2 = 4;
+        int height = 4;
+        int width = 20;
+
+
+
+        String expected =   "enter command: "        +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "enter command: "        +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "|          x         |" + System.getProperty("line.separator") +
+                            "|          x         |" + System.getProperty("line.separator") +
+                            "|          x         |" + System.getProperty("line.separator") +
+                            "|          x         |" + System.getProperty("line.separator") +
+                            "----------------------" + System.getProperty("line.separator") + 
+                            "enter command: Tried to exit with status 0." + System.getProperty("line.separator");
+
+        Parser parser = new Parser();
+        Controller controller = new Controller();
+
+        App app = new App();
+
+        String input =  "C " + width + " " + height + System.getProperty("line.separator");
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        
+        input = "L " + " " + x1 + " " + y1 + " " + x2 + " " +  y2 + System.getProperty("line.separator"); 
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        input = "Q " + System.getProperty("line.separator");
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        exit.expectSystemExitWithStatus(0);
+        app.run(controller, parser);
+
+        assertEquals(actual.toString(), expected);
+    }
+
+    @Test 
+    public void Init_canvas_then_draw_rect_then_fill_then_quit() {
+
+        int x1 = 6;
+        int y1 = 2;
+        int x2 = 15;
+        int y2 = 4;
+        int x = 9;
+        int y = 3;
+        char color = 'o';
+        int height = 5;
+        int width = 20;
+
+        String expected =   "enter command: "        +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "enter command: "        +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|     xxxxxxxxxx     |" + System.getProperty("line.separator") +
+                            "|     x        x     |" + System.getProperty("line.separator") +
+                            "|     xxxxxxxxxx     |" + System.getProperty("line.separator") + 
+                            "|                    |" + System.getProperty("line.separator") +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "enter command: "        +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "|                    |" + System.getProperty("line.separator") +
+                            "|     xxxxxxxxxx     |" + System.getProperty("line.separator") +
+                            "|     xoooooooox     |" + System.getProperty("line.separator") +
+                            "|     xxxxxxxxxx     |" + System.getProperty("line.separator") + 
+                            "|                    |" + System.getProperty("line.separator") +
+                            "----------------------" + System.getProperty("line.separator") +
+                            "enter command: Tried to exit with status 0." + System.getProperty("line.separator");
+
+        Parser parser = new Parser();
+        Controller controller = new Controller();
+        App app = new App();
+
+        String input =  "C " + width + " " + height + System.getProperty("line.separator");
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        input = "R " + " " + x1 + " " + y1 + " " + x2 + " " +  y2 + System.getProperty("line.separator"); 
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        input = "B " + " " + x + " " + y + " " + color + System.getProperty("line.separator"); 
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        input = "Q " + System.getProperty("line.separator");
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        exit.expectSystemExitWithStatus(0);
+        app.run(controller, parser);
+
+        // fail(actual.toString());
+        assertEquals(actual.toString(), expected);
+    }
+
+    @Test 
+    public void Invalid_command() {
+
+        int height = 5;
+        int width = 20;
+
+        String expected =   "enter command: "        +
+                            "Unknown Command." + System.getProperty("line.separator");
+                            
+
+        Parser parser = new Parser();
+        Controller controller = new Controller();
+        App app = new App();
+
+        String input =  "Fill " + width + " " + height + System.getProperty("line.separator");
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        assertEquals(actual.toString(), expected);
+    }
+
+    @Test 
+    public void Canvas_command_with_width_only() {
+
+        int height = 5;
+        int width = 20;
+
+        String expected =   "enter command: "  + System.getProperty("line.separator") +
+                            "[Error] Missing arguments." + System.getProperty("line.separator") +
+                            System.getProperty("line.separator") +
+                            "Usage: " + System.getProperty("line.separator") +
+                            "C <height> <width>" + System.getProperty("line.separator") +
+                            System.getProperty("line.separator");
+                            
+
+        Parser parser = new Parser();
+        Controller controller = new Controller();
+        App app = new App();
+
+        String input =  "C " + width + System.getProperty("line.separator");
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        assertEquals(actual.toString(), expected);
+    }
+
+    @Test 
+    public void Canvas_command_with_decimal_instead_of_integer() {
+
+        double height = 4.0;
+        double width = 20.0;
+
+        String expected =   "enter command: "  + System.getProperty("line.separator") +
+                            "[Error] Wrong argument type." + System.getProperty("line.separator") +
+                            System.getProperty("line.separator") +
+                            "Usage: " + System.getProperty("line.separator") +
+                            "C <height> <width>" + System.getProperty("line.separator") +
+                            System.getProperty("line.separator");
+                            
+
+        Parser parser = new Parser();
+        Controller controller = new Controller();
+        App app = new App();
+
+        String input =  "C " + width + " " + height + System.getProperty("line.separator");
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        app.run(controller, parser);
+
+        assertEquals(actual.toString(), expected);
     }
 }
