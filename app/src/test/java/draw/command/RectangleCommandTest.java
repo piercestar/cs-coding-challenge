@@ -29,16 +29,16 @@ public class RectangleCommandTest {
         int height = 4;
         int width = 20;
 
-        String expected =   "                    \n" + 
-                            "xxx                 \n" +
-                            "x x                 \n" + 
-                            "xxx                 \n";
+        String expected =   "                    " + System.getProperty("line.separator") +
+                            "xxx                 " + System.getProperty("line.separator") +
+                            "x x                 " + System.getProperty("line.separator") +
+                            "xxx                 " + System.getProperty("line.separator");
                         
         Canvas canvas = new Canvas(width, height);
         RectangleCommand command = new RectangleCommand(canvas, x1, y1, x2, y2);
         command.execute();
 
-        assertEquals(actual.toString(), expected);
+        assertEquals(expected, actual.toString());
         
     }
 
