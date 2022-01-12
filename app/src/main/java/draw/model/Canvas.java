@@ -3,20 +3,29 @@ package draw.model;
 import draw.model.Point;
 import draw.model.shape.Shape;
 import draw.exception.OutOfBoundsException;
+import draw.exception.CanvasInitializationException;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class Canvas {
 
     private int width;
     private int height;
     private Point[][] canvas;
 
-    public Canvas(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.canvas = initCanvas(width, height);
+    public Canvas(int width, int height) throws Exception {
+        initialize(width, height);
     }
 
-    public Point[][] initCanvas(int width, int height) {
+    public void initialize(int width, int height) throws Exception {
+
+        if (width <= 0 || height <= 0) {
+            throw new CanvasInitializationException("Canvas height and width should be greater than 0.");
+        }
+
+        this.width = width;
+        this.height = height;
 
         Point[][] points = new Point[height][width];
 
@@ -26,7 +35,8 @@ public class Canvas {
             }
         }
 
-        return points;
+        this.canvas = points;
+
     }
 
     public void addShape(Shape shape) throws OutOfBoundsException {

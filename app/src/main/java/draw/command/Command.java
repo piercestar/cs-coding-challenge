@@ -2,12 +2,10 @@ package draw.command;
 
 import draw.model.Canvas;
 
-public abstract class Command {
-    public Canvas canvas;
+import lombok.NoArgsConstructor;
 
-    Command(Canvas canvas) {
-        this.canvas = canvas;
-    }
+@NoArgsConstructor
+public abstract class Command {
 
     void backup() {
         // backup = editor.textField.getText();
@@ -17,5 +15,5 @@ public abstract class Command {
         // editor.textField.setText(backup);
     }
 
-    public abstract void execute();
+    public abstract void execute() throws Exception;
 }
