@@ -18,7 +18,7 @@ public class Printer {
 
                 System.out.print(color);
             }
-            System.out.print('\n');
+            System.out.println();
         }
     }
 }
