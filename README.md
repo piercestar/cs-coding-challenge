@@ -5,7 +5,7 @@ Coding Challenge from Credit Suisse, 4 January 2021.
 
 # Running the Application
 
-This application was built with gradle. Use the wrapper to tun the program or tests.
+This application was built with gradle. Use the wrapper to run the program or tests.
 
 ```
 .\gradlew.bat run --console=plain
